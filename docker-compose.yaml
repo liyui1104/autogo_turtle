@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  turtlesim:
+    image: lgy/autogo_turtle:v1
+    entrypoint: ["/ros_entrypoint.sh"]
+    command: ["ros2", "launch", "autogo_turtle", "turtlesim_launch.py"]
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+
+  autogo_turtle:
+    image: lgy/autogo_turtle:v1
+    entrypoint: ["/ros_entrypoint.sh"]
+    command: ["ros2", "launch", "autogo_turtle", "autogo_turtle_launch.py"]
+    depends_on:
+      - turtlesim
